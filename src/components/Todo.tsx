@@ -7,9 +7,10 @@ type Props = {
   texts: string[];
   setCount: (value: number | ((prev: number) => number)) => void;
   count: number;
+  menuItem: string;
 };
 
-export const Todo = ({ texts, setCount, count }: Props) => {
+export const Todo = ({ texts, setCount, count, menuItem }: Props) => {
   const [checkedMap, setCheckedMap] = useState(() => {
     const saved = localStorage.getItem('checked-state');
     return saved ? JSON.parse(saved) : {};
@@ -36,6 +37,41 @@ export const Todo = ({ texts, setCount, count }: Props) => {
   return (
     <>
       {texts.map((text: string, id: number) => {
+        if (menuItem === 'Active') {
+          return checkedMap[id] ? (
+            <></>
+          ) : (
+            <li key={id} className="todo" data-id={id}>
+              <Checkbox
+                color="default"
+                icon={<RadioButtonUnchecked />}
+                checkedIcon={<CheckCircle />}
+                checked={checkedMap[id]}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+                  onChange(e, checked);
+                }}
+              />
+              <p className="text">{text}</p>
+            </li>
+          );
+        } else if (menuItem === 'Complited') {
+          return checkedMap[id] ? (
+            <li key={id} className="todo checked" data-id={id}>
+              <Checkbox
+                color="default"
+                icon={<RadioButtonUnchecked />}
+                checkedIcon={<CheckCircle />}
+                checked={checkedMap[id]}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+                  onChange(e, checked);
+                }}
+              />
+              <p className="text">{text}</p>
+            </li>
+          ) : (
+            <></>
+          );
+        }
         return (
           <li key={id} className={`todo ${checkedMap[id] ? 'checked' : ''}`} data-id={id}>
             <Checkbox
