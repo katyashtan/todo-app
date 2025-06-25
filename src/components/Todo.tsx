@@ -5,9 +5,11 @@ import { RadioButtonUnchecked, CheckCircle } from '@mui/icons-material';
 
 type Props = {
   texts: string[];
+  setCount: (value: number | ((prev: number) => number)) => void;
+  count: number;
 };
 
-export const Todo = ({ texts }: Props) => {
+export const Todo = ({ texts, setCount, count }: Props) => {
   const [checkedMap, setCheckedMap] = useState(() => {
     const saved = localStorage.getItem('checked-state');
     return saved ? JSON.parse(saved) : {};
@@ -15,7 +17,8 @@ export const Todo = ({ texts }: Props) => {
 
   useEffect(() => {
     localStorage.setItem('checked-state', JSON.stringify(checkedMap));
-  }, [checkedMap]);
+    localStorage.setItem('count', JSON.stringify(count));
+  }, [checkedMap, count]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     const id = e.target.closest('li.todo')?.getAttribute('data-id');
@@ -23,8 +26,10 @@ export const Todo = ({ texts }: Props) => {
     setCheckedMap((prev: object) => ({ ...prev, [id]: checked }));
     if (checked) {
       e.target.closest('li.todo')?.classList.add('checked');
+      setCount((prev) => prev - 1);
     } else {
       e.target.closest('li.todo')?.classList.remove('checked');
+      setCount((prev) => prev + 1);
     }
   };
 
