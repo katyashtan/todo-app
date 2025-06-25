@@ -20,6 +20,7 @@ export const App = () => {
   };
   return (
     <div className="container">
+      <h1 className="header">todos</h1>
       <Input onInputSubmit={onInputSubmit} />
       <Todo texts={toDoText} />
     </div>
