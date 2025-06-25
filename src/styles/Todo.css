@@ -7,6 +7,12 @@
   align-items: center;
   border-radius: 10vw;
 }
+
+.todo.checked {
+  text-decoration: line-through;
+  color: lightslategray;
+}
+
 .text {
   font-size: 1.3rem;
   margin-left: 0.5vw;
