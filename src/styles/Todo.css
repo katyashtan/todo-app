@@ -19,3 +19,9 @@
   font-family: 'Courier New', Courier, monospace;
   font-weight: 300;
 }
+
+@media (max-width: 480px) {
+  .todo {
+    width: 80vw;
+  }
+}

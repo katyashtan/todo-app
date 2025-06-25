@@ -38,19 +38,56 @@ export const App = () => {
   };
 
   return (
-    <>
-      <div className="container">
+    <div className="content">
+      <div className="top-container">
         <h1 className="header">todos</h1>
         <Input onInputSubmit={onInputSubmit} />
         <Todo texts={toDoText} setCount={setCount} count={count} menuItem={menuItem} />
       </div>
-      <p>Items left: {count}</p>
-      <BottomNavigation showLabels>
-        <BottomNavigationAction onClick={() => setMenuItem('All')} label="All" />
-        <BottomNavigationAction onClick={() => setMenuItem('Active')} label="Active" />
-        <BottomNavigationAction onClick={() => setMenuItem('Completed')} label="Completed" />
-      </BottomNavigation>
-      <button onClick={() => onDelete(deletedMap)}>Clear completed</button>
-    </>
+      <div className="bottom-container">
+        <p className="count">Items left: {count}</p>
+        <BottomNavigation
+          showLabels
+          sx={{
+            backgroundColor: 'bisque',
+            marginRight: '1.5vw',
+          }}
+        >
+          <BottomNavigationAction
+            sx={{
+              borderRadius: '2vw',
+              '&:hover': {
+                backgroundColor: 'white',
+              },
+            }}
+            onClick={() => setMenuItem('All')}
+            label="All"
+          />
+          <BottomNavigationAction
+            sx={{
+              borderRadius: '2vw',
+              '&:hover': {
+                backgroundColor: 'white',
+              },
+            }}
+            onClick={() => setMenuItem('Active')}
+            label="Active"
+          />
+          <BottomNavigationAction
+            sx={{
+              borderRadius: '2vw',
+              '&:hover': {
+                backgroundColor: 'white',
+              },
+            }}
+            onClick={() => setMenuItem('Completed')}
+            label="Completed"
+          />
+        </BottomNavigation>
+        <button onClick={() => onDelete(deletedMap)} className="delete">
+          Clear completed
+        </button>
+      </div>
+    </div>
   );
 };

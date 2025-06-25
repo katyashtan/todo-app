@@ -39,6 +39,9 @@ export const Input = ({ onInputSubmit }: Props) => {
           '& input': {
             color: 'black',
           },
+          '@media (max-width:480px)': {
+            width: '80vw',
+          },
         },
         '& .MuiInputLabel-root.Mui-focused': {
           color: 'black',
