@@ -36,17 +36,17 @@ export const Todo = ({ texts, setCount, count, menuItem }: Props) => {
 
   return (
     <>
-      {texts.map((text: string, id: number) => {
+      {texts.map((text: string) => {
         if (menuItem === 'Active') {
-          return checkedMap[id] ? (
+          return checkedMap[text] ? (
             <></>
           ) : (
-            <li key={id} className="todo" data-id={id}>
+            <li key={text} className="todo" data-id={text}>
               <Checkbox
                 color="default"
                 icon={<RadioButtonUnchecked />}
                 checkedIcon={<CheckCircle />}
-                checked={checkedMap[id]}
+                checked={checkedMap[text]}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
                   onChange(e, checked);
                 }}
@@ -54,14 +54,14 @@ export const Todo = ({ texts, setCount, count, menuItem }: Props) => {
               <p className="text">{text}</p>
             </li>
           );
-        } else if (menuItem === 'Complited') {
-          return checkedMap[id] ? (
-            <li key={id} className="todo checked" data-id={id}>
+        } else if (menuItem === 'Completed') {
+          return checkedMap[text] ? (
+            <li key={text} className="todo checked" data-id={text}>
               <Checkbox
                 color="default"
                 icon={<RadioButtonUnchecked />}
                 checkedIcon={<CheckCircle />}
-                checked={checkedMap[id]}
+                checked={checkedMap[text]}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
                   onChange(e, checked);
                 }}
@@ -73,12 +73,12 @@ export const Todo = ({ texts, setCount, count, menuItem }: Props) => {
           );
         }
         return (
-          <li key={id} className={`todo ${checkedMap[id] ? 'checked' : ''}`} data-id={id}>
+          <li key={text} className={`todo ${checkedMap[text] ? 'checked' : ''}`} data-id={text}>
             <Checkbox
               color="default"
               icon={<RadioButtonUnchecked />}
               checkedIcon={<CheckCircle />}
-              checked={checkedMap[id]}
+              checked={checkedMap[text]}
               onChange={(e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
                 onChange(e, checked);
               }}

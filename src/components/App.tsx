@@ -27,6 +27,16 @@ export const App = () => {
     setToDoText((prev) => [...prev, inputText]);
     setCount((prev) => prev + 1);
   };
+
+  const deletedMap: string[] = Array.from(document.querySelectorAll('.checked')).map(
+    (el) => el.textContent || ''
+  );
+
+  const onDelete = (deletedMap: string[]) => {
+    const notDeleted = toDoText.filter((item) => !deletedMap.includes(item));
+    setToDoText(notDeleted);
+  };
+
   return (
     <>
       <div className="container">
@@ -38,8 +48,9 @@ export const App = () => {
       <BottomNavigation showLabels>
         <BottomNavigationAction onClick={() => setMenuItem('All')} label="All" />
         <BottomNavigationAction onClick={() => setMenuItem('Active')} label="Active" />
-        <BottomNavigationAction onClick={() => setMenuItem('Complited')} label="Complited" />
+        <BottomNavigationAction onClick={() => setMenuItem('Completed')} label="Completed" />
       </BottomNavigation>
+      <button onClick={() => onDelete(deletedMap)}>Clear completed</button>
     </>
   );
 };
