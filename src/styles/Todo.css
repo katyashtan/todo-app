@@ -1,0 +1,15 @@
+.todo {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid grey;
+  height: 4.5vh;
+  width: 30vw;
+  align-items: center;
+  border-radius: 10vw;
+}
+.text {
+  font-size: 1.3rem;
+  margin-left: 0.5vw;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 300;
+}
