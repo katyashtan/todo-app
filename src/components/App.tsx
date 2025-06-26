@@ -57,7 +57,7 @@ export const App = () => {
             return true;
           })
           .map((todoItem) => (
-            <Todo todoItem={todoItem} setCount={setCount} />
+            <Todo key={todoItem.id} todoItem={todoItem} setCount={setCount} />
           ))}
       </div>
       <div className="bottom-container">

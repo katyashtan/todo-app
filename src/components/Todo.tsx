@@ -11,7 +11,7 @@ type Props = {
 
 export const Todo = ({ todoItem, setCount }: Props) => {
   return (
-    <li key={todoItem.id} className={`todo ${todoItem.isCompleted ? 'checked' : ''}`}>
+    <li className={`todo ${todoItem.isCompleted ? 'checked' : ''}`}>
       <Checkbox
         color="default"
         icon={<RadioButtonUnchecked />}
