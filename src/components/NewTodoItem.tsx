@@ -6,7 +6,7 @@ type Props = {
   onInputSubmit: (inputText: string) => void;
 };
 
-export const Input = ({ onInputSubmit }: Props) => {
+export const NewTodoItem = ({ onInputSubmit }: Props) => {
   const [inputText, setInputText] = useState('');
   return (
     <TextField

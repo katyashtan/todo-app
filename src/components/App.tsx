@@ -1,8 +1,8 @@
 import '../styles/App.css';
-import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { Input } from './Input';
+import { NewTodoItem } from './NewTodoItem';
 import { Todo } from './Todo';
+import { FilterList } from './FilterList';
 
 const LOCAL_STORAGE_KEY = 'my-todo';
 
@@ -12,7 +12,7 @@ export type TodoItem = {
   isCompleted: boolean;
 };
 
-type SupportedFilterModes = 'All' | 'Completed' | 'Active';
+export type SupportedFilterModes = 'All' | 'Completed' | 'Active';
 
 export const App = () => {
   const [todoItems, setTodoItems] = useState<TodoItem[]>(() => {
@@ -49,7 +49,7 @@ export const App = () => {
     <div className="content">
       <div className="top-container">
         <h1 className="header">todos</h1>
-        <Input onInputSubmit={AddTodo} />
+        <NewTodoItem onInputSubmit={AddTodo} />
         {todoItems
           .filter((todoItem) => {
             if (filterMode === 'Active') return !todoItem.isCompleted;
@@ -62,44 +62,7 @@ export const App = () => {
       </div>
       <div className="bottom-container">
         <p className="count">Items left: {count}</p>
-        <BottomNavigation
-          showLabels
-          sx={{
-            backgroundColor: 'bisque',
-            marginRight: '1.5vw',
-          }}
-        >
-          <BottomNavigationAction
-            sx={{
-              borderRadius: '2vw',
-              '&:hover': {
-                backgroundColor: 'white',
-              },
-            }}
-            onClick={() => setFilterMode('All')}
-            label="All"
-          />
-          <BottomNavigationAction
-            sx={{
-              borderRadius: '2vw',
-              '&:hover': {
-                backgroundColor: 'white',
-              },
-            }}
-            onClick={() => setFilterMode('Active')}
-            label="Active"
-          />
-          <BottomNavigationAction
-            sx={{
-              borderRadius: '2vw',
-              '&:hover': {
-                backgroundColor: 'white',
-              },
-            }}
-            onClick={() => setFilterMode('Completed')}
-            label="Completed"
-          />
-        </BottomNavigation>
+        <FilterList onFilterChanged={setFilterMode} />
         <button onClick={DeleteCompleted} className="delete">
           Clear completed
         </button>
