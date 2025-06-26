@@ -29,6 +29,7 @@ export const FilterList = ({ onFilterChanged }: Props) => {
           }}
           onClick={() => onFilterChanged(mode)}
           label={mode}
+          key={mode}
         />
       ))}
     </BottomNavigation>
