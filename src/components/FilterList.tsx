@@ -8,6 +8,8 @@ type Props = {
   ) => void;
 };
 
+const FILTER_MODES: SupportedFilterModes[] = ['All', 'Active', 'Completed'];
+
 export const FilterList = ({ onFilterChanged }: Props) => {
   return (
     <BottomNavigation
@@ -17,36 +19,18 @@ export const FilterList = ({ onFilterChanged }: Props) => {
         marginRight: '1.5vw',
       }}
     >
-      <BottomNavigationAction
-        sx={{
-          borderRadius: '2vw',
-          '&:hover': {
-            backgroundColor: 'white',
-          },
-        }}
-        onClick={() => onFilterChanged('All')}
-        label="All"
-      />
-      <BottomNavigationAction
-        sx={{
-          borderRadius: '2vw',
-          '&:hover': {
-            backgroundColor: 'white',
-          },
-        }}
-        onClick={() => onFilterChanged('Active')}
-        label="Active"
-      />
-      <BottomNavigationAction
-        sx={{
-          borderRadius: '2vw',
-          '&:hover': {
-            backgroundColor: 'white',
-          },
-        }}
-        onClick={() => onFilterChanged('Completed')}
-        label="Completed"
-      />
+      {FILTER_MODES.map((mode) => (
+        <BottomNavigationAction
+          sx={{
+            borderRadius: '2vw',
+            '&:hover': {
+              backgroundColor: 'white',
+            },
+          }}
+          onClick={() => onFilterChanged(mode)}
+          label={mode}
+        />
+      ))}
     </BottomNavigation>
   );
 };

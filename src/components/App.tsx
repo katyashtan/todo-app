@@ -21,7 +21,7 @@ export const App = () => {
   });
 
   const [count, setCount] = useState<number>(() => {
-    const saved = localStorage.getItem('count1');
+    const saved = localStorage.getItem('count');
     return saved ? JSON.parse(saved) : todoItems.length;
   });
 
@@ -29,10 +29,10 @@ export const App = () => {
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoItems));
-    localStorage.setItem('count1', JSON.stringify(count));
+    localStorage.setItem('count', JSON.stringify(count));
   }, [todoItems, count]);
 
-  const AddTodo = (inputText: string) => {
+  const addTodo = (inputText: string) => {
     setTodoItems((prev: TodoItem[]) => [
       ...prev,
       { id: new Date().toISOString(), description: inputText, isCompleted: false },
@@ -40,7 +40,7 @@ export const App = () => {
     setCount((prev) => prev + 1);
   };
 
-  const DeleteCompleted = () => {
+  const deleteCompleted = () => {
     const notDeleted = todoItems.filter((todo) => !todo.isCompleted);
     setTodoItems(notDeleted);
   };
@@ -49,7 +49,7 @@ export const App = () => {
     <div className="content">
       <div className="top-container">
         <h1 className="header">todos</h1>
-        <NewTodoItem onInputSubmit={AddTodo} />
+        <NewTodoItem onInputSubmit={addTodo} />
         {todoItems
           .filter((todoItem) => {
             if (filterMode === 'Active') return !todoItem.isCompleted;
@@ -63,7 +63,7 @@ export const App = () => {
       <div className="bottom-container">
         <p className="count">Items left: {count}</p>
         <FilterList onFilterChanged={setFilterMode} />
-        <button onClick={DeleteCompleted} className="delete">
+        <button onClick={deleteCompleted} className="delete">
           Clear completed
         </button>
       </div>
