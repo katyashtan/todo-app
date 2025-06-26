@@ -11,7 +11,7 @@ export const Input = ({ onInputSubmit }: Props) => {
   return (
     <TextField
       id="outlined-basic"
-      label="What's your plan for today"
+      label="What's your plan for today?"
       variant="outlined"
       value={inputText}
       onChange={(e) => setInputText(e.target.value)}
