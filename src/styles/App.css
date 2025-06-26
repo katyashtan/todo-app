@@ -12,8 +12,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 89%;
+  overflow-y: auto;
+  scrollbar-color: bisque transparent;
 }
 
+.todo-block {
+}
 .bottom-container {
   display: flex;
   flex-direction: row;
@@ -21,7 +26,8 @@
   bottom: 1vh;
   align-items: center;
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 1rem;
 }
 
 .header {
