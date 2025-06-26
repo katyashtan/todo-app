@@ -12,10 +12,11 @@ export const NewTodoItem = ({ onInputSubmit }: Props) => {
       id="outlined-basic"
       label="What's your plan for today?"
       variant="outlined"
+      inputProps={{ maxLength: 30 }}
       value={inputText}
       onChange={(e) => setInputText(e.target.value)}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && inputText.length > 0) {
           e.preventDefault();
           onInputSubmit(inputText);
           setInputText('');
@@ -25,7 +26,7 @@ export const NewTodoItem = ({ onInputSubmit }: Props) => {
         '& .MuiOutlinedInput-root': {
           borderRadius: '10vw',
           width: '30vw',
-          height: '4.5vh',
+          height: '50px',
           '& fieldset': {
             border: '2px solid grey',
           },
