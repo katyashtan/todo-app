@@ -24,8 +24,6 @@
   text-overflow: unset;
 }
 
-/* При наведении — разрешить прокрутку */
-
 @media (max-width: 480px) {
   .todo {
     width: 80vw;

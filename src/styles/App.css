@@ -17,8 +17,6 @@
   scrollbar-color: bisque transparent;
 }
 
-.todo-block {
-}
 .bottom-container {
   display: flex;
   flex-direction: row;
@@ -62,5 +60,8 @@
 @media (max-width: 480px) {
   .content {
     width: 95vw;
+  }
+  .top-container {
+    max-height: 85%;
   }
 }
