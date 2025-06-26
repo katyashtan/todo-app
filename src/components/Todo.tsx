@@ -1,6 +1,7 @@
 import '../styles/Todo.css';
 import Checkbox from '@mui/material/Checkbox';
-import { RadioButtonUnchecked, CheckCircle } from '@mui/icons-material';
+import CheckCircle from '@mui/icons-material/CheckCircle';
+import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
 import type { TodoItem } from './App';
 
 type Props = {

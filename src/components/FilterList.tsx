@@ -1,4 +1,5 @@
-import { BottomNavigation, BottomNavigationAction } from '@mui/material';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import BottomNavigation from '@mui/material/BottomNavigation';
 import type { SupportedFilterModes } from './App';
 
 type Props = {
