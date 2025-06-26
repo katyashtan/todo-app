@@ -12,6 +12,8 @@ export type TodoItem = {
   isCompleted: boolean;
 };
 
+type SupportedFilterModes = 'All' | 'Completed' | 'Active';
+
 export const App = () => {
   const [todoItems, setTodoItems] = useState<TodoItem[]>(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -23,7 +25,7 @@ export const App = () => {
     return saved ? JSON.parse(saved) : todoItems.length;
   });
 
-  const [menuItem, setMenuItem] = useState<string>('All');
+  const [filterMode, setFilterMode] = useState<SupportedFilterModes>('All');
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoItems));
@@ -48,14 +50,15 @@ export const App = () => {
       <div className="top-container">
         <h1 className="header">todos</h1>
         <Input onInputSubmit={AddTodo} />
-        {todoItems.map((todoItem) => {
-          if (menuItem === 'Competed') {
-            return todoItem.isCompleted ? <Todo todoItem={todoItem} setCount={setCount} /> : <></>;
-          } else if (menuItem === 'Active') {
-            return todoItem.isCompleted ? <></> : <Todo todoItem={todoItem} setCount={setCount} />;
-          }
-          return <Todo todoItem={todoItem} setCount={setCount} />;
-        })}
+        {todoItems
+          .filter((todoItem) => {
+            if (filterMode === 'Active') return !todoItem.isCompleted;
+            if (filterMode === 'Completed') return todoItem.isCompleted;
+            return true;
+          })
+          .map((todoItem) => (
+            <Todo todoItem={todoItem} setCount={setCount} />
+          ))}
       </div>
       <div className="bottom-container">
         <p className="count">Items left: {count}</p>
@@ -73,7 +76,7 @@ export const App = () => {
                 backgroundColor: 'white',
               },
             }}
-            onClick={() => setMenuItem('All')}
+            onClick={() => setFilterMode('All')}
             label="All"
           />
           <BottomNavigationAction
@@ -83,7 +86,7 @@ export const App = () => {
                 backgroundColor: 'white',
               },
             }}
-            onClick={() => setMenuItem('Active')}
+            onClick={() => setFilterMode('Active')}
             label="Active"
           />
           <BottomNavigationAction
@@ -93,7 +96,7 @@ export const App = () => {
                 backgroundColor: 'white',
               },
             }}
-            onClick={() => setMenuItem('Completed')}
+            onClick={() => setFilterMode('Completed')}
             label="Completed"
           />
         </BottomNavigation>
