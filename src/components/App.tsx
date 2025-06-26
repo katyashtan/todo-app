@@ -6,43 +6,56 @@ import { Todo } from './Todo';
 
 const LOCAL_STORAGE_KEY = 'my-todo';
 
+export type TodoItem = {
+  id: string;
+  description: string;
+  isCompleted: boolean;
+};
+
 export const App = () => {
-  const [toDoText, setToDoText] = useState<string[]>(() => {
+  const [todoItems, setTodoItems] = useState<TodoItem[]>(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     return saved ? JSON.parse(saved) : [];
   });
 
   const [count, setCount] = useState<number>(() => {
-    const saved = localStorage.getItem('count');
-    return saved ? JSON.parse(saved) : toDoText.length;
+    const saved = localStorage.getItem('count1');
+    return saved ? JSON.parse(saved) : todoItems.length;
   });
 
-  const [menuItem, setMenuItem] = useState('All');
+  const [menuItem, setMenuItem] = useState<string>('All');
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDoText));
-  }, [toDoText]);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoItems));
+    localStorage.setItem('count1', JSON.stringify(count));
+  }, [todoItems, count]);
 
-  const onInputSubmit = (inputText: string) => {
-    setToDoText((prev) => [...prev, inputText]);
+  const AddTodo = (inputText: string) => {
+    setTodoItems((prev: TodoItem[]) => [
+      ...prev,
+      { id: new Date().toISOString(), description: inputText, isCompleted: false },
+    ]);
     setCount((prev) => prev + 1);
   };
 
-  const deletedMap: string[] = Array.from(document.querySelectorAll('.checked')).map(
-    (el) => el.textContent || ''
-  );
-
-  const onDelete = (deletedMap: string[]) => {
-    const notDeleted = toDoText.filter((item) => !deletedMap.includes(item));
-    setToDoText(notDeleted);
+  const DeleteCompleted = () => {
+    const notDeleted = todoItems.filter((todo) => !todo.isCompleted);
+    setTodoItems(notDeleted);
   };
 
   return (
     <div className="content">
       <div className="top-container">
         <h1 className="header">todos</h1>
-        <Input onInputSubmit={onInputSubmit} />
-        <Todo texts={toDoText} setCount={setCount} count={count} menuItem={menuItem} />
+        <Input onInputSubmit={AddTodo} />
+        {todoItems.map((todoItem) => {
+          if (menuItem === 'Competed') {
+            return todoItem.isCompleted ? <Todo todoItem={todoItem} setCount={setCount} /> : <></>;
+          } else if (menuItem === 'Active') {
+            return todoItem.isCompleted ? <></> : <Todo todoItem={todoItem} setCount={setCount} />;
+          }
+          return <Todo todoItem={todoItem} setCount={setCount} />;
+        })}
       </div>
       <div className="bottom-container">
         <p className="count">Items left: {count}</p>
@@ -84,7 +97,7 @@ export const App = () => {
             label="Completed"
           />
         </BottomNavigation>
-        <button onClick={() => onDelete(deletedMap)} className="delete">
+        <button onClick={DeleteCompleted} className="delete">
           Clear completed
         </button>
       </div>
